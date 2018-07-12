@@ -98,3 +98,86 @@ class BinTree(object):
         node = None 
         return n
     
+class BinNodeUtil(object):
+    @staticmethod
+    def is_root(node):
+        return not node.parent
+    @staticmethod
+    def is_lchild(node):
+        return (not BinNodeUtil.is_root(node))&(node.parent.lc is node)
+    @staticmethod
+    def is_rchild(node):
+        return (not BinNodeUtil.is_root(node))&(node.parent.rc is node)
+    @staticmethod
+    def has_parent(node):
+        return not BinNodeUtil.is_root(node)
+    @staticmethod
+    def has_lchild(node):
+        return not node.lc is None
+    @staticmethod
+    def has_rchild(node):
+        return not node.rc is None
+    @staticmethod
+    def has_child(node):
+        return BinNodeUtil.has_lchild(node) or BinNodeUtil.has_rchild(node)
+    @staticmethod
+    def has_bothchild(node):
+        return BinNodeUtil.has_lchild(node) & BinNodeUtil.has_rchild(node)
+    @staticmethod
+    def is_leaf(node):
+        return not BinNodeUtil.has_child(node)
+    @staticmethod
+    def sibling(node):
+        try:
+            return  node.parent.rc if BinNodeUtil.is_lchild(node) else node.parent.lc
+        except  AttributeError:
+            return None
+    @staticmethod
+    def uncile(node):
+        try:
+            parent = node.parent
+            return parent.parent.rc if BinNodeUtil.is_lchild(parent) else parent.parent.lc
+        except  AttributeError:
+            return None
+    @staticmethod
+    def from_parent_to(node,value=None):
+        '''来自父亲的引用'''
+        if (BinNodeUtil.is_lchild(node)):
+            node.parent.lc = None
+        if (BinNodeUtil.is_rchild(node)):
+            node.parent.rc = None
+    
+class  BinTreeUtility(object):
+    @staticmethod
+    def travIn_R(node , visit):
+        if node is None : 
+            return 
+        BinTreeUtility.travIn_R(node.lc , visit)
+        visit (node.data)
+        BinTreeUtility.travIn_R(node.rc , visit)
+        
+    @staticmethod
+    def travLevel(node,visit):
+        queue = [node]
+        while len(queue)>0 :
+            top_node = queue[0]  # 取队列第一个元素
+            queue = queue[1:]
+            visit (top_node.data)
+            if top_node.lc is not None : 
+                queue.append(top_node.lc)
+            if top_node.rc is not None : 
+                queue.append(top_node.rc)
+                
+    @staticmethod
+    def succ(node):
+        if node.rc is not None :
+            node_now = node.rc
+            while node_now.lc is not None:
+                node_now = node_now.lc
+        else : 
+            node_now = node
+            while BinNodeUtil.is_rchild(node_now):  # 一直向左上方提升
+                node_now = node_now.parent 
+            node_now = node_now.parent 
+        return node_now
+            
