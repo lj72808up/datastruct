@@ -79,3 +79,8 @@ class List(object):
         while(node is not self.tailer):
             visit(node.data)
             node = node.succ
+    def remove(self,node):
+        node.pred.succ = node.succ
+        node.succ.pred = node.pred
+        self.size = self.size-1
+        return node.data
