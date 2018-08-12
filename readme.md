@@ -35,5 +35,5 @@
   3. [希尔排序]()
 
 - 栈 
-  1. [计算器实现]() 
+  1. [计算器实现](http://nbviewer.jupyter.org/github/lj72808up/datastruct/blob/cff283e7641b050c3b4df57ec780ff2a2d5b943b/stack/2%20-%20%E8%AE%A1%E7%AE%97%E5%99%A8.ipynb) 
   2. [n皇后问题]()
