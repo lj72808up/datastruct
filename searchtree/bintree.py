@@ -146,6 +146,9 @@ class BinNodeUtil(object):
             node.parent.lc = None
         if (BinNodeUtil.is_rchild(node)):
             node.parent.rc = None
+    @staticmethod
+    def stature(node):
+        return -1 if node is None else node.height
     
 class  BinTreeUtility(object):
     @staticmethod
