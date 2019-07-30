@@ -23,6 +23,6 @@ package array;
  */
 public class InversePairs_51 {
     public int InversePairs(int [] array) {
-
+        return 0;
     }
 }
