@@ -7,6 +7,37 @@ package linklist;
  */
 public class CompleteListClone_35 {
     public RandomListNode Clone(RandomListNode pHead) {
+        if(pHead==null)
+            return null;
+        RandomListNode cur = pHead;
+        while(cur!=null){
+            RandomListNode cloneNode = new RandomListNode(cur.label);
+            cloneNode.next = cur.next;
+            cur.next = cloneNode;
+            cur = cloneNode.next;
+        }
+
+        cur = pHead;
+        while(cur!=null){
+            RandomListNode cloneNode = cur.next;
+            if(cur.random!=null)
+                cloneNode.random = cur.random.next;
+            cur = cloneNode.next;
+        }
+
+        cur = pHead;
+        RandomListNode cloneHead = pHead.next;
+        while (cur!=null){ // 原链表找出
+            RandomListNode cloneNode = cur.next;
+            cur.next = cloneNode.next;
+            cur = cur.next;
+        }
+
+        //TODO step3
+        return pHead;
+    }
+
+    public static void main(String[] args) {
 
     }
 }
@@ -14,4 +45,7 @@ public class CompleteListClone_35 {
 /**
  * 思路:
  *  需要维护两种关系: next和random
+ *      (1)next关系维护: 可以先复制一个节点, 插入到原节点和原节点的下一个节点之间, 这样从开头开始, 每个1个节点就是原链表中的节点
+ *      (2)random关系维护: 找到每个新复制的节点, 将其random指向前一个节点的random节点的复制节点
+ *      (3)奇数点的就是原链表;偶数点的就是新链表
  * */
