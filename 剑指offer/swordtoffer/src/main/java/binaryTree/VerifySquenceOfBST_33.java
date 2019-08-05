@@ -6,49 +6,29 @@ package binaryTree;
  */
 public class VerifySquenceOfBST_33 {
     public boolean VerifySquenceOfBST(int [] sequence) {
-        return VerifySquenceOfBST2(sequence,0,sequence.length-1);
+
     }
-    private boolean VerifySquenceOfBST2(int[] sequence,int start,int end){
-        int root = sequence[end];
-        int leftEndIndex = findLeft(sequence,start,end,root);
-        int rightStartIndex = leftEndIndex==-1? start:leftEndIndex+1;
-        boolean isBSTRight = isBSTRightChild(sequence,rightStartIndex,end,root);
-        if (!isBSTRight)
+    public boolean VerifySquenceOfBST(int [] sequence,int start,int end) {
+        if(start>end)
             return false;
-        else{
-            boolean leftFlag = true;
-            boolean rightFlag = true;
-            if (leftEndIndex>start)
-                leftFlag = VerifySquenceOfBST2(sequence,start,leftEndIndex);
-            if (rightStartIndex<end)
-                rightFlag = VerifySquenceOfBST2(sequence,rightStartIndex,end);
-            return leftFlag && rightFlag;
-        }
+        if(start==end)
+            return true;
 
-
-    }
-
-    /** 找到左子树的最后一个节点
-     */
-    private int findLeft(int[] sequence,int start,int end,int root){
-        int leftIndex = -1;
-        for (int i = start; i <= end; i++) {
+        int root = sequence[end];
+        int leftEndIndex = -1;
+        for (int i = start; i <=end-1 ; i++) {
             if(sequence[i]<root)
-                leftIndex=i;
+                leftEndIndex = i;
             else
                 break;
         }
-        return leftIndex;
-    }
 
-    /** 判断右子树是否满足平衡
-     */
-    private boolean isBSTRightChild(int[] sequence,int start,int end,int root){
-        for (int i = start; i <= end; i++) {
-            if(sequence[i]<=end)
-                return false;
+        int rightStartIndex = leftEndIndex==-1?start:leftEndIndex+1
+            for (int i = leftEndIndex+1; i <=end-1 ; i++) {
+                if(sequence[i]<root)
+                    return false;
+            }
         }
-        return true;
     }
 }
 

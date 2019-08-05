@@ -8,7 +8,11 @@ import java.util.ArrayList;
  * 路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)
  */
 public class FindPath_34 {
-    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target, int sum) {
+        if()
+    }
 
+    private ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target, int sum) {
+        if()
     }
 }
