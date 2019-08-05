@@ -6,6 +6,6 @@ package linklist;
  */
 public class EntryNodeOfLoop_23 {
     public ListNode EntryNodeOfLoop(ListNode pHead) {
-
+        return null;
     }
 }

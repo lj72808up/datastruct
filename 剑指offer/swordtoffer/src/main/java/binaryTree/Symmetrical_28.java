@@ -6,20 +6,25 @@ package binaryTree;
  */
 public class Symmetrical_28 {
     boolean isSymmetrical(TreeNode pRoot) {
+        return isSym(pRoot,pRoot);
+    }
 
-        if(pRoot==null) {
+    private boolean isSym(TreeNode root1,TreeNode root2){
+        if (root1==null && root2==null)
             return true;
-        }
-
-        if(pRoot.left!=null && pRoot.right!=null){
-            if(pRoot.left.val==pRoot.right.val)
-                return isSymmetrical(pRoot.left) && isSymmetrical(pRoot.right);
-            else
-                return false;
-        }else if(pRoot.left==null && pRoot.right==null) {
-            return true;
-        }else {
+        if (root1==null || root2==null)
             return false;
-        }
+        if (root1.val!=root2.val)
+            return false;
+        else
+            return isSym(root1.left,root2.right) && isSym(root1.right,root2.left);
     }
 }
+
+/**
+ * 思路:
+ *  树是否对称 :
+ *    从root节点开始,
+ *    a. 2个节点的val是否一致
+ *    b. 对比左孩子的左孩子和右孩子的右孩子
+ * */
