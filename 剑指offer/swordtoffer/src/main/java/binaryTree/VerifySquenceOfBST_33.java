@@ -6,29 +6,11 @@ package binaryTree;
  */
 public class VerifySquenceOfBST_33 {
     public boolean VerifySquenceOfBST(int [] sequence) {
-
+        return false;
     }
     public boolean VerifySquenceOfBST(int [] sequence,int start,int end) {
-        if(start>end)
-            return false;
-        if(start==end)
-            return true;
 
-        int root = sequence[end];
-        int leftEndIndex = -1;
-        for (int i = start; i <=end-1 ; i++) {
-            if(sequence[i]<root)
-                leftEndIndex = i;
-            else
-                break;
-        }
-
-        int rightStartIndex = leftEndIndex==-1?start:leftEndIndex+1
-            for (int i = leftEndIndex+1; i <=end-1 ; i++) {
-                if(sequence[i]<root)
-                    return false;
-            }
-        }
+        return false;
     }
 }
 
