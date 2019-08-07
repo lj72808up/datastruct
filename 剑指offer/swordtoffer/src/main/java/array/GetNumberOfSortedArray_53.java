@@ -80,3 +80,88 @@ public class GetNumberOfSortedArray_53 {
  *  (1)数组的边界条件, 用角标取数组时, 要先检查交表是否会出现outofbounds异常
  *  (2)注意检查边界条件
  */
+
+
+
+
+
+
+
+
+
+/**
+ * 题目描述: 0~n-1中缺失的数字
+ * 1个长度为n-1的递增数组中所有数字都是唯一的, 并且每个数字的范围都是0~n-1之内. 在范围0~n-1中有且只有一个数字不在数组中, 求该数字
+ */
+
+class MissingNumberInIncreaseArray{
+    public int solution(int[] arr){
+        if(arr.length==0)
+            return -1;
+
+        int index1=0;
+        int index2 = arr.length-1;
+
+        while(index1<index2){
+            int mid = (index1+index2)>>1;
+            if(arr[mid]==mid){
+                index1 = mid+1;
+            }else{
+                index2 = mid;
+            }
+            System.out.println(index1+"::"+index2);
+        }
+        return index2;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {0,1,2,3,4,6};
+        System.out.println(new MissingNumberInIncreaseArray().solution(arr));
+    }
+}
+
+/**
+ * 思路:
+ *  已知数组有2个特点: 长度为n-1, 数组中元素范围是(0~n-1这n个数), 数组是递增的
+ *  (1) 首先想到, 只要计算出0~n-1的和s1, 再计算出数组中元素的和s2, 则s1-s2的差就是缺失的数字.
+ *      但这种方法显然没利用到数组是递增的这个条件
+ *  (2) 再想, 既然数组是递增有序的, 且元素范围是0~n-1, 角标范围是0~n-2, 数字唯一, 因此数组中开始的一些元素值和其角标是相同的,
+ *      当遇到1个元素值和角标不同的数字时, 则因为递增的缘故, 后面所有元素的角标和元素值都不同; 因此问题准换为找到第一个元素值和角标不同的位置, 其角标就是缺失的值.
+ *      因此想到利用二分查找找出第一个角标和元素值不同的位置:
+ *          a. 如果mid角标和元素值不同, 则第一个不同的位置应该在其前面, 所以在(start和mid中找);
+ *          b. 如果mid角标和元素值相同, 则第一个不同的位置应该在其后面, 所以在(mid+1和end中找);
+ * */
+
+
+
+/**
+ * 题目描述: 数组中数值和下标形同的元素
+ * 假设1个递增数组中, 每个元素都是整数且唯一的, 请在这个数组中找到任意一个数值等于其下标的元素.
+ * 例如: {-3,-1,1,3,5}中, 3和它的下标相同
+ * */
+class FindSameNumberAndIndex{
+    public int solution(int[] arr) throws Exception {
+        if(arr.length==0)
+            throw new Exception("cannot find in null array");
+
+        int index1=0;
+        int index2 = arr.length-1;
+
+        while(index1<index2){
+            int mid = (index1+index2)>>1;
+            if(arr[mid]>mid){   //元素比角标大, 则其后面的所有元素都会比角标大
+                index2 = mid-1;
+            }else if(arr[mid]<mid){
+                index1 = mid+1;
+            }else{
+                return mid;
+            }
+        }
+        return index2;
+    }
+
+    public static void main(String[] args) throws Exception {
+        int[] arr = {-3,-1,1,3,5};
+        System.out.println(new FindSameNumberAndIndex().solution(arr));
+    }
+}
