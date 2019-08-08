@@ -6,6 +6,6 @@ package other;
  */
 public class ReplaceSpace_05 {
     public String replaceSpace(StringBuffer str) {
-
+        return "";
     }
 }
