@@ -81,6 +81,10 @@ public class HasPathInMatrix_12 {
 }
 
 /**
+ * [思路]:
+ *      使用递归剪枝记性查找
+ *      (1) 找到第n个字符出现的位置, 将其visited设置为true
+ *      (2) 在其上下左右四个方向上寻找下一个字符, 若找到,则继续地柜, 若没找到, 递归返回false剪枝, 且把自己的visited还原为false
  * [注意]:
  *     如果某条路径走不通, 则该递归走过的所有节点的visited要还原成false
  * */
