@@ -6,6 +6,31 @@ package other;
  */
 public class ReplaceSpace_05 {
     public String replaceSpace(StringBuffer str) {
-
+        char[] src= str.toString().toCharArray();
+        int cnt = 0;
+        for (int i = 0; i < src.length; i++) {
+            if(src[i]==' ')
+                cnt++;
+        }
+        int expend = cnt*2;
+        char[] dist = new char[src.length+expend];
+        int index = dist.length-1;
+        for (int i = src.length-1; i >=0; i--) {
+            if(src[i]==' ') {
+                dist[index] = '0';
+                dist[index - 1] = '2';
+                dist[index - 2] = '%';
+                index -= 3;
+            }else{
+                dist[index] = src[i];
+                index--;
+            }
+        }
+        return new String(dist);
     }
 }
+
+/**
+ * 思路:
+ *   1. 替换后有1个占位的' '变成3个占位的'%20', 多出2个占位; 所以先计算出
+ * */
