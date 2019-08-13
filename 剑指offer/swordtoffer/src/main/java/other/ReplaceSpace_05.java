@@ -6,6 +6,7 @@ package other;
  */
 public class ReplaceSpace_05 {
     public String replaceSpace(StringBuffer str) {
+<<<<<<< HEAD
         char[] src= str.toString().toCharArray();
         int cnt = 0;
         for (int i = 0; i < src.length; i++) {
@@ -27,6 +28,9 @@ public class ReplaceSpace_05 {
             }
         }
         return new String(dist);
+=======
+        return "";
+>>>>>>> 3894867fe710d33c6218b61fb514c544d9656dd4
     }
 }
 
