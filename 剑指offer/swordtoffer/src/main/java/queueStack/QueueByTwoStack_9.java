@@ -3,6 +3,7 @@ package queueStack;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 题目描述
@@ -49,8 +50,8 @@ public class QueueByTwoStack_9 {
  */
 class MyStack {
     private int flag = 0;
-    private Queue<Integer> queue1 = new LinkedBlockingDeque<>();
-    private Queue<Integer> queue2 = new LinkedBlockingDeque<>();
+    private Queue<Integer> queue1 = new LinkedBlockingQueue<>();
+    private Queue<Integer> queue2 = new LinkedBlockingQueue<>();
 
     public void push(int node) {
         if(flag%2==0)
