@@ -31,12 +31,33 @@ public class UglyNumber_49 {
         }
         return uglyNums[index-1];
     }
+
+    /**
+     * 判断一个数是否为抽数
+     */
+    private boolean isUgly(int num) {
+        if(num==0)
+            return false;
+
+        while(num%2==0)
+            num = num/2;
+        while(num%3==0)
+            num = num/3;
+        while(num%5==0)
+            num = num/5;
+        return num==1;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new UglyNumber_49().isUgly(2));
+    }
 }
 
 /**
  * 一般思路:
  *  (1)最简单的, 我们只要找到如何判断一个数是不是丑数, 然后从1开始每次+1的判断丑数, 知道找到第N个丑数即可:
- *      判断丑数的方法为: 只要1个数能除以2, 就连续除以2; 能除以3, 就连续除以3; 能除以5, 就连续除以5; 最后看余数是不是0即可
+ *      判断丑数的方法为: 只要1个数能除以2(余数为0), 就连续除以2; 能除以3(余数为0), 就连续除以3; 能除以5(余数为0), 就连续除以5; 最后看整除后的数是不是1即可
+ *      [注意]: num=0时要单独判断, 否则0对任何数的余数都是0,会陷入死循环
  *  (2)该方法在N特大的时候, 需要判断N次, 需要1中更快速的方法
  *     (该方法没有用到一个隐藏条件: 1个丑数, 必然是另一个丑数*2/*3/*5的结果)
  *
