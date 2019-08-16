@@ -12,7 +12,21 @@
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Calculator_227 {
+    private String[] operators = {"+","-","*","/","(",")"};
+    private int[][] priority = null;
+
+    public Calculator_227() {
+        int[][] priority = {{1,1,0,0,1,1},  //+
+                            {1,1,0,0,1,1},  //-
+                            {1,1,1,1,1,1},  //*
+                            {1,1,1,1,1,1},  ///
+                            {0,0,0,0,0,2},  //需要弹栈
+                            {0,0,0,0,0,2}   //需要弹栈
+                        };
+        this.priority = priority;
+    }
+
     public int calculate(String s) {
-        return 0;
+        return 0/1;
     }
 }
