@@ -12,7 +12,10 @@
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+
+
 import java.util.HashMap;
+
 public class LRUCache_146 {
     private HashMap<Integer,DoubleLinkedNode> hashMap = new HashMap<>();  // 存储节点
     private DoubleLinkedNode head = new DoubleLinkedNode();
@@ -38,15 +41,24 @@ public class LRUCache_146 {
     }
 
     public void put(int key, int value) {
-        DoubleLinkedNode newNode = new DoubleLinkedNode(key, value);
-        if (this.curSize<this.cacheSize){
-            move2Head(newNode,true);  // 头部插入新节点
-            this.curSize++;
-        }else{  // cache已经满了
-            deleteTail();
-            move2Head(newNode,true);
+        /**
+         * put: 如果能已存在key, 就更新, 否则作为新节点插入; 两种情况都要movetohead
+         */
+        DoubleLinkedNode node = hashMap.get(key);
+        if(node==null) {
+            DoubleLinkedNode newNode = new DoubleLinkedNode(key, value);
+            if (this.curSize < this.cacheSize) {
+                move2Head(newNode, true);  // 头部插入新节点
+                this.curSize++;
+            } else {  // cache已经满了
+                deleteTail();
+                move2Head(newNode, true);
+            }
+            hashMap.put(key, newNode);
+        }else{
+            node.value = value;
+            move2Head(node,false);
         }
-        hashMap.put(key,newNode);
     }
 
     private void move2Head(DoubleLinkedNode node,boolean isNew){
@@ -58,7 +70,7 @@ public class LRUCache_146 {
             }
             // 在head位置补齐连接
             node.next = head.next;
-            node.next.pre = head;
+            node.next.pre = node;
             node.pre = head;
             head.next = node;
         }
@@ -79,16 +91,13 @@ public class LRUCache_146 {
     public static void main(String[] args) {
         LRUCache_146 cache = new LRUCache_146( 2 );
 
-        cache.put(1, 1);
-        cache.put(2, 2);
-        System.out.println(cache.get(1));       // 返回  1
-        cache.put(3, 3);    // 该操作会使得密钥 2 作废
-        System.out.println(cache.get(2));       // 返回 -1 (未找到)
-        cache.put(4, 4);    // 该操作会使得密钥 1 作废
+        System.out.println(cache.get(2));       // 返回  1
+        cache.put(2, 6);
+        System.out.println(cache.get(1));     // 该操作会使得密钥 2 作废
+        cache.put(1, 5);       // 返回 -1 (未找到)
+        cache.put(1, 2);    // 该操作会使得密钥 1 作废
         System.out.println(cache.get(1));       // 返回 -1 (未找到)
-        System.out.println(cache.get(3));       // 返回  3
-        System.out.println(cache.get(4));       // 返回  4
-
+        System.out.println(cache.get(2));       // 返回  3
     }
 }
 
