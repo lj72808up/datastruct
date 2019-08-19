@@ -1,4 +1,6 @@
+import javax.management.relation.RoleUnresolved;
 import java.util.Stack;
+
 
 /**
  * 题目描述:
@@ -22,9 +24,9 @@ public class Calculator_227 {
                                  +   -   *   /   ^   !   (   ) */
              /** 栈顶元素: + */ {'>','>','<','<','<','<','<','>'},
                       /** - */ {'>','>','<','<','<','<','<','>'},
-                      /** * */ {'>','>','<','<','<','<','<','>'},
+                      /** * */ {'>','>','>','>','<','<','<','>'},
                       /** / */ {'>','>','>','>','<','<','<','>'},
-                      /** ^ */ {'>','>','>','>','>','<','<','>'},
+                      /** ^ */ {'>','>','>','>','<','<','<','>'},
                       /** ! */ {'>','>','>','>','>','>',' ','>'},
                       /** ( */ {'<','<','<','<','<','<','<','='},
                       /** ) */ {' ',' ',' ',' ',' ',' ',' ',' '}
@@ -52,19 +54,20 @@ public class Calculator_227 {
                     char priori = getPriority(top, chs[i]);
                     switch (priori) {
                         case '>':   // 栈顶优先级高, 可以进行计算
-                            simpleCal(opNums, operators);
-                            operators.push(chs[i]);
+                            simpleCal(opNums, operators);  // 循环计算, 角标不增加, 操作符也不入栈, 直到栈顶优先级比当前优先级小
                             break;
                         case '<':
                             operators.push(chs[i]);
+                            i++;
                             break;
                         case '=':
                             operators.pop();
+                            i++;
                             break;
                         default:     // 表达式语法出错
-                            return -1;
+                            throw new RuntimeException("priority 非法");
                     }  // switch
-                    i++;
+
                 }
             }else{    // 表达式已经遍历完
                 simpleCal(opNums,operators);
@@ -136,7 +139,12 @@ public class Calculator_227 {
                 opNums.push(product);
                 break;
             }
-            default: break;
+            case ')':{
+                operators.pop();  // 栈顶遇到反括号, 只弹栈
+                break;
+            }
+            default:
+                throw new RuntimeException("非法操作符:"+op);
         }
     }
 
@@ -153,21 +161,10 @@ public class Calculator_227 {
     }
 
     public static void main(String[] args) {
-        String str = "2+(3*2)-1";
-        System.out.println(new Calculator_227().calculate(str));
+        String str = "2+(3+2*(2-1))*2";
+        String str2 = "14/3*2";
+        Calculator_227 cal = new Calculator_227();
+        System.out.println(str+" = "+cal.calculate(str));
     }
 }
 
-
-/**
- * 思路:
- *  (1) 算法从左到右扫描字符, 尚不能参与计算的操作数和操作符分别入栈opNums,operators
- *      a. 这里允许读取数字为小数, 因此需要处理小数点问题
- *  (2) 一旦发现栈顶的操作符优先级比当前操作符优先级高, 则弹出栈定进行计算, 并将结果写会操作数栈opNums
- *      a. 如果遇到'('操作符, 由于需要先计算小括号内的数字, 所以'('比所有其他操作符的优先级都低;
- *         即小括号及其右面的数字统一压入栈
- *      a2. 如果当前为运算符, 而栈顶为'(', 说明已经进入小括号内进行计算, 此时不能立刻计算, 还要看其后面的操作符, 因次priority[操作符]['(']='<'
- *      b. 如果遇到')'操作符, 说明小括号内的字符扫描完毕, 可以进行计算, 因次, ')'比其他所有自读的优先级都高;
- *         对')'的上述处理方式, 直到栈顶操作符为'('为止, 弹出'(', 可以让')'的优先级等于'('
- *      b2. 由于遇到')'后, 需要弹栈计算, 所以还在那鼎不会出现')'
- * */
