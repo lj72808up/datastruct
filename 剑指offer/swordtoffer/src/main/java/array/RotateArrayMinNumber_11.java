@@ -21,7 +21,7 @@ public class RotateArrayMinNumber_11 {
 
             mid = (index1+index2)>>1;
             if (arr[index1]==arr[mid] && arr[index2]==arr[mid])
-                this.searchMin(arr,index1,index2);
+                return this.searchMin(arr,index1,index2);
             if (arr[mid]>=arr[index1]){
                 index1=mid;
             }else if(arr[mid]<=arr[index2]){
