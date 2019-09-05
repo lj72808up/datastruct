@@ -15,10 +15,8 @@ public class MaxProfit_63 {
         int minValue = Integer.MAX_VALUE;
         int maxIncome = 0;
         for (int i = 0; i < prices.length; i++) {
-            if(prices[i]-minValue > maxIncome)
-                maxIncome = prices[i]-minValue;
-            if(prices[i]<minValue)
-                minValue = prices[i];
+            maxIncome = Math.max(prices[i]-minValue, maxIncome);
+            minValue = Math.min(prices[i], minValue);
         }
         return maxIncome;
     }
@@ -58,7 +56,7 @@ class MaxProfit2_122 {
     }
 
     public static void main(String[] args) {
-        int[] prices = {7,1,5,3,6,4};
+        int[] prices = {7,8,5,3,6,4};
         System.out.println(new MaxProfit2_122().maxProfit(prices));
     }
 }
@@ -92,7 +90,8 @@ class MaxProfit_309{
      * 题目三:
      *    给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​
      *    设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
-     *
+     *      (1) 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+     *      (2) 卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)
      * 链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown
      * */
     public int maxProfit(int[] prices) {

@@ -20,9 +20,6 @@ public class BigMultiply_43 {
 
         // 结果数组
         int[] res = new int[chs1.length+chs2.length];  // 乘积结果的位数最多不超过2个长度之和
-        /*for (int i = 0; i < res.length; i++) {
-            res[i] = '0';
-        }*/
 
         // 结果数组插入
         for (int i = chs2.length-1; i >= 0; i--) {
@@ -48,6 +45,12 @@ public class BigMultiply_43 {
     }
 
     public static void main(String[] args) {
-        System.out.println(new BigMultiply_43().multiply("0","0"));
+        System.out.println(new BigMultiply_43().multiply("10","10"));
     }
 }
+
+/**
+ * 思路: 用数组模拟字符串相乘的结果, 定义结果数组res, 长度为chs1.length+chs2.length
+ *  (1) 2个for循环,指针i,j分别指向待相乘位置的2个字符;
+ *  (2) 把2个字符转换成数字相乘后, 加上该位置的进位, 结果%10放在res的i+j位置, 结果/10放在res[i+j+1]的位置
+ * */
