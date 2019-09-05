@@ -1,7 +1,5 @@
 package array;
 
-import sun.nio.cs.ext.MacThai;
-
 /**
  * 题目描述:
  *  数字以 1234567891011...的格式序列化字符序列中, 找到第 n 个数字。

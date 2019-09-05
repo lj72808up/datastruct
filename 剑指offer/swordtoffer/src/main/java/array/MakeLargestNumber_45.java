@@ -10,6 +10,6 @@ package array;
  */
 public class MakeLargestNumber_45 {
     public String largestNumber(int[] nums) {
-
+        return "";
     }
 }
