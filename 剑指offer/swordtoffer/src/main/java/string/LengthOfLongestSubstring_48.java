@@ -1,5 +1,11 @@
 package string;
 
+import com.sun.prism.shader.AlphaOne_Color_AlphaTest_Loader;
+
+import java.util.HashMap;
+
+import java.util.Arrays;
+
 /**
  * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
  *
@@ -26,38 +32,30 @@ public class LengthOfLongestSubstring_48 {
         if (s.length()==0)
             return 0;
 
-        int maxLength = 1; // 最大字串长度
-        char[] chars = s.toCharArray();
+        int maxLength = 0; // 最大字串长度
+        int curLength = 0;
+        HashMap<Character, Integer> location = new HashMap<>();  //存储上次出现该字符时的角标
 
-        int[] location = new int[255]; // 记录26个字符上次出现的位置(意味着出现重复字符)
-        for (int i = 0; i < location.length; i++) {
-            location[i] = -1;
-        }
-
-        int curLength = 1;  //第1个字符的最长无重复子串长度为1
-        location[chars[0]] = 0;
-
-        for (int i = 1; i < chars.length; i++) {
-            int lastLocation = location[chars[i]];
-            if(lastLocation==-1) {
-                curLength++;
+        char[] chs = s.toCharArray();
+        for (int i = 0; i < chs.length; i++) {
+            Integer nextLocation = location.get(chs[i]);
+            if(nextLocation==null){  // 该字符没有出现过: f(n)=f(n-1)+1
+               curLength ++;
             }else{
-                int distance = i-lastLocation;
-                if (distance<=curLength){
-                    curLength = distance;
-                }else{
+                int d = i-nextLocation+1;  // 该字符距离上次出现过的长度
+                if(d > curLength+1){
                     curLength++;
+                }else{
+                    curLength = d-1;
                 }
             }
-            if(curLength > maxLength)
-                maxLength = curLength;
-            location[chars[i]] = i;
+            maxLength = Math.max(maxLength,curLength);
+            location.put(chs[i],i);
         }
         return maxLength;
     }
 
     public static void main(String[] args) {
-        System.out.println((char)0);
         String str = " ";
         System.out.println(new LengthOfLongestSubstring_48().lengthOfLongestSubstring(str));
     }
@@ -74,5 +72,5 @@ public class LengthOfLongestSubstring_48 {
  *    (2) f(i) = f(i-1)+1  (第i个字符在前面没有出现过)
  *        f(i) = d        (第i个字符,距离上次出现位置的距离为d, 这个d小于等于f(i-1); 即以i-1字符为结尾的最长字串中包含字符char[i])
  *        f(i) = f(i-1)+1 (第i个字符,距离上次出现位置的距离为d, 这个d大于f(i-1); 在之前的d个字符中, 存在和char[i-1]相同的字符, 因此去f(i-1)+1)
- *    (3) 为了表示字符在前面是否出现过, 可以用一个int[255]记录每个字符上次出现的位置, 没心迭代都去更新这个数组即可
+ *    (3) 为了表示字符在前面是否出现过, 可以用一个int[255]记录每个字符上次出现的位置, 每次迭代都去更新这个数组即可
  * */
