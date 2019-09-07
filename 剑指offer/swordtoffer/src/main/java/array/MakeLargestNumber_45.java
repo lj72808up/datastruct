@@ -10,6 +10,10 @@ package array;
  */
 public class MakeLargestNumber_45 {
     public String largestNumber(int[] nums) {
+<<<<<<< HEAD
         return "";
+=======
+return "";
+>>>>>>> 0a043f72ed210dc93119db6cd74879996306508a
     }
 }

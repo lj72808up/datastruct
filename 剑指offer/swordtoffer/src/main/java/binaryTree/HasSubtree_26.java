@@ -9,13 +9,14 @@ public class HasSubtree_26 {
         if (root1==null || root2==null)
             return false;
         boolean res = false;
-        if(root1.val == root2.val && isEqualTree(root1,root2)){
-            res = true;
-        }else{
-            if(isEqualTree(root1.left,root2))
-                res = true;
-            else
-                res = isEqualTree(root1.right,root2);
+        if(root1.val == root2.val){
+            res = isEqualTree(root1,root2);
+        }
+        if(!res){
+            res = HasSubtree(root1.left,root2);
+        }
+        if(!res){
+            res = HasSubtree(root1.right,root2);
         }
         return res;
     }

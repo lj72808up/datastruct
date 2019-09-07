@@ -11,8 +11,7 @@ public class GetNextTreeNode_08 {
             return null;
 
         if(pNode.right!=null){
-            TreeLinkNode rNode = pNode.right;
-            TreeLinkNode next = rNode;
+            TreeLinkNode next = pNode.right;
             while(next.left!=null){
                 next = next.left;
             }

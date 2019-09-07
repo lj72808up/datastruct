@@ -44,7 +44,7 @@ class IsBalanced_Solution{
         int right = getDeep(root.right);
         if(right==-1)
             return -1;
-        int res = 0;
+        int res;
         if (Math.abs(left-right)>1)  // 返回节点的deep
             res = -1;
         else
@@ -82,5 +82,7 @@ class IsBalanced_Solution{
 
 /**
  * 思路:
- *   仍然采用查看节点深度的办法, 只是在左右自述深度相差大于1的时候, 返回-1,在该节点表示不平衡了; 而一旦发现左右子树中有不平衡的, 立刻返回-1, 表示不平衡了(剪枝)
+ *   仍然采用查看节点深度的办法:
+ *      (1)只是在左右子树深度相差大于1的时候, 返回-1,在该节点表示不平衡了; 而一旦发现左右子树中有不平衡的, 立刻返回-1, 表示不平衡了(剪枝)
+ *      (2)左右子树深度差相差小于等于1时, 返回自身的深度
  * */

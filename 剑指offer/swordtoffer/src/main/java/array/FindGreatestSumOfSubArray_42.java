@@ -16,7 +16,7 @@ public class FindGreatestSumOfSubArray_42 {
                 curSum = arr[i];
             else
                 curSum = curSum + arr[i];
-            maxSum = Integer.max(maxSum,curSum);
+            maxSum = Math.max(maxSum,curSum);
         }
         return maxSum;
     }

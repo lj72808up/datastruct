@@ -16,8 +16,8 @@ public class FindPath_34 {
             return res;
         ArrayList<Integer> path = new ArrayList<>();
         int sum = 0;
-//        findPathUntilLeaf(root, target, sum,path,res);
-        findPathAnyNode(root, target, sum,path,res);
+        findPathUntilLeaf(root, target, sum,path,res);
+//        findPathAnyNode(root, target, sum,path,res);
         return res;
     }
 
@@ -25,8 +25,9 @@ public class FindPath_34 {
      * 从root到每个叶子节点的路径中, 所有和为sum的节点
      */
     private void findPathUntilLeaf(TreeNode node, int target, int sum, ArrayList<Integer> path,ArrayList<ArrayList<Integer>> res) {
-        /*if(node==null)
-            return;*/
+        if(node==null)
+            return;
+
         sum = sum + node.val;
         System.out.println(sum);
         path.add(node.val);
@@ -38,10 +39,8 @@ public class FindPath_34 {
             res.add(okPath);
         }
 
-        if (node.left!=null)
-            findPathUntilLeaf(node.left,target,sum,path,res);
-        if (node.right!=null)
-            findPathUntilLeaf(node.right,target,sum,path,res);
+        findPathUntilLeaf(node.left,target,sum,path,res);
+        findPathUntilLeaf(node.right,target,sum,path,res);
 
         path.remove(path.size()-1);  // 从path中删除自身,确保返回父节点时,path只包含root到父节点的路径
     }
