@@ -41,7 +41,7 @@ public class Permutation_38 {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Permutation_38().Permutation("aba"));
+        System.out.println(new Permutation_38().Permutation("abc"));
     }
 }
 
