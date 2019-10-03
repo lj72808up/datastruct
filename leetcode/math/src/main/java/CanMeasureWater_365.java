@@ -53,8 +53,8 @@ public class CanMeasureWater_365 {
                         copys[fromIndex] = copys[fromIndex] - (capacity[toIndex] - copys[toIndex]);
                         copys[toIndex] = capacity[toIndex];
                     } else {
-                        copys[fromIndex] = 0;
                         copys[toIndex] = copys[toIndex] + copys[fromIndex];
+                        copys[fromIndex] = 0;
                     }
                 }
                 return new Cups(copys);
