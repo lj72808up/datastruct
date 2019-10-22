@@ -45,7 +45,7 @@ import java.util.Stack;
  */
 public class SimplifyPath_46 {
     public String simplifyPath(String path) {
-        if(path.charAt(0) != '/')
+//        if(path.charAt(0) != '/')
             return "";
 
     }
