@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 /** 问题描述:
  *  1. 这是一个被称做"蓄水池抽样"的经典问题, 问题主要描述为:
  *   有一个长度未知的数据流, 要从中抽取m个元素. 要求:
@@ -10,6 +13,45 @@
  *    https://leetcode-cn.com/problems/linked-list-random-node/
  * */
 public class ReservoirSample_382 {
+    class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int x) { val = x; }
+    }
+    private ListNode head;
+    private Random r = new Random();
+    /** @param head The linked list's head.
+    Note that the head is guaranteed to be not null, so it contains at least one node. */
+    public ReservoirSample_382(ListNode head) {
+        this.head = head;
+    }
+
+    /** Returns a random node's value. */
+    public int getRandom() {
+        ListNode[] res = getRandom(1);
+        return res[0].val;
+    }
+
+    /** 抽取m个元素的通用方法 */
+    public ListNode[] getRandom(int m) {
+        ListNode[] res = new ListNode[m];
+        ListNode cur = head;
+        // 前m个元素插入蓄水池
+        for (int i = 0; i < m; i++) {
+            res[i] = cur;
+            cur = cur.next;
+        }
+        int i = m;
+        // 后面的元素开始替换
+        while (cur != null){
+            int rand = r.nextInt(i + 1);
+            if(rand<m)
+                res[rand] = cur;
+
+            cur = cur.next;
+        }
+        return res;
+    }
 }
 
 
@@ -30,12 +72,44 @@ public class ReservoirSample_382 {
  *            arr(m) = dataFlow(i)
  *     }
  *     ```
- *    上述伪代码的意思为:
+ *    上述伪代码的意思为2步: 选择 + 替换
  *      先从数据流中选择1~m的元素, 作为被抽样到的元素;
  *      对后面m+1开始的元素做如下操作:
  *        这些元素都有m/i的概率被选中, 然后等概率的(1/m)替换掉被选中的元素; i为元素在数据流中的序号
  *
- *   (2) 概率证明
- *  https://www.jianshu.com/p/7a9ea6ece2af
+ *   (2) 概率证明: 证明每个元素被选中的概率为m/n
+ *     a) 当i>m时
+ *      P(第i个对象被选中) = P(第i个对象可以放入蓄水池) *
+ *                          Product(
+*                              P(其后面元素不放入蓄水池) +
+*                              P(其后面元素放入蓄水池) * P(该后面的元素没有替换掉第i个元素)
+ *                          )
+ *      即: P(i) = m/i * [ (1 - m/(i+1)) + m/i+1 * (1-1/m)
+ *                       * (1 - m/(i+2)) + m/i+2 * (1-1/m)
+ *                       * ...
+ *                       * (1 - m/n) + m/n * (1-1/m) ]
+ *               = m/i * [ (i+1-m)/(i+1) + (m-1)/(i+1)
+ *                       * (i+2-m)/(i+2) + (m-1)/(i+2)
+ *                       * ...
+ *                       * (n-m)/n + (m-1)/n ]
+ *               = m/i * ( i/i+1
+ *                       * i+1/i+2
+ *                       * ...
+ *                       * n-1/n
+ *                       )
+ *               = m/i * i/n
+ *               = m/n
  *
+ *      b) 当i<=m时
+ *       P(第i个对象被选中) = P(第i个对象可以放入蓄水池|i<m) *
+ *  *                          Product(
+ * *                              P(m后面元素不放入蓄水池) +
+ * *                              P(m后面元素放入蓄水池) * P(该后面的元素没有替换掉第i个元素)
+ *       其中P(第i个对象可以放入蓄水池|i<m) = 1
+ *       即: P(i) = 1 * [(1 - m/m+1) + m/m+1 * (1-1/m)
+ *                        * (1 - m/(m+2)) + m/m+2 * (1-1/m)
+ *                        * ...
+ *                        * (1 - m/n) + m/n * (1-1/m)]
+ *                = m/n
  * */
+
