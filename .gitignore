@@ -1,4 +1,5 @@
 **/.idea/
 datastruct.iml
+**/*.iml
 **/.ipynb_checkpoints/
 **/target/**
