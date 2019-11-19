@@ -22,10 +22,15 @@ lazy val byteCodeDance = (project in file("./byteCodeDance"))
     scalaVersion := "2.12.8"
   ):_*)
 
+lazy val dp = (project in file("./dp"))
+  .settings(Seq(
+    version := "0.1",
+    scalaVersion := "2.12.8"
+  ):_*)
 
 lazy val root = (project in file("."))
   .settings(
     name := "leetcode",
     version := "0.1",
     scalaVersion := "2.12.8"
-  ).aggregate(tencent,top150)
+  ).aggregate(tencent,top150,dp)
