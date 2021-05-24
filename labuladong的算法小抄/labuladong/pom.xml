@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>1-刷算法就是套框架/coreFramework</module>
+        <module>3-数据结构</module>
     </modules>
 
     <properties>
