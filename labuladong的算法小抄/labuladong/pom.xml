@@ -11,11 +11,8 @@
     <modules>
         <module>1-刷算法就是套框架/coreFramework</module>
         <module>3-数据结构</module>
-<<<<<<< Updated upstream
         <module>5-高频面试题/frequent-interview</module>
-=======
         <module>4-高频面试题</module>
->>>>>>> Stashed changes
     </modules>
 
     <properties>
