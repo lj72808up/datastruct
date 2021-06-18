@@ -42,15 +42,16 @@ public class ReverseKGroup_25 {
     }
 
     private ListNode reverse(ListNode node) {
-        ListNode pre = null;
+        ListNode pre = null;  // (1) 进入循环前记录 pre
         ListNode cur = node;
         ListNode next;
 
         while(cur!=null){
-            next = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = next;
+            next = cur.next;  // (2) 循环中获取 next
+            cur.next = pre;   // (3) 循环更新 cur 的 next 指针
+
+            pre = cur;        // (4) 更新 pre
+            cur = next;       // (5) 更新 cur, 前进一步
 
         }
         return pre;
