@@ -13,6 +13,7 @@
 <!--        <module>3-数据结构/datastructure</module>-->
         <module>5-高频面试题/frequent-interview</module>
         <module>3-数据结构/dataStructures</module>
+        <module>commonNode</module>
     </modules>
 
     <properties>
