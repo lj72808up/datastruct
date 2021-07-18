@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SolveNQueens {
     public List<List<String>> solveNQueens(int n) {
-
+        return new ArrayList<>();
     }
 
     /** 检测此位置放置皇后是否存在冲突 */
